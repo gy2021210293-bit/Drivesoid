@@ -90,4 +90,10 @@ Format: `[{"role":"user","content":"..."},{"role":"assistant","content":"..."}]`
 
 ## Step 7 — Done
 
-Tell the user: "Drivesoid is running. I can now track my emotional state across our conversations."
+Tell the user:
+
+> "Drivesoid is running. I can now track my emotional state across our conversations.
+>
+> You can view my emotional state and tune parameters anytime at:
+> **http://127.0.0.1:PORT/dashboard**
+> (replace PORT with the port number, default 3001)"
