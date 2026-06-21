@@ -84,8 +84,8 @@ const SETUP_HTML = `<!DOCTYPE html>
       <input name="api_key" type="password" required placeholder="sk-...">
       <div class="hint">
         Used to label your messages emotionally — a cheap fast model works best.<br>
-        <a href="https://platform.deepseek.com/api_keys" target="_blank">Get a free DeepSeek key ↗</a>
-        (recommended)
+        Recommended: <a href="https://platform.deepseek.com/api_keys" target="_blank">DeepSeek ↗</a>
+        (cheap, ~$0.1/M tokens)
       </div>
     </div>
     <div class="field">
