@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"/absolute/path/to/drivesoid/hooks/codex/UserPromptSubmit.py\"",
+            "timeout": 20,
+            "statusMessage": "Loading Drivesoid state"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"/absolute/path/to/drivesoid/hooks/codex/Stop.py\"",
+            "timeout": 5,
+            "statusMessage": "Reporting turn to Drivesoid"
+          }
+        ]
+      }
+    ]
+  }
+}

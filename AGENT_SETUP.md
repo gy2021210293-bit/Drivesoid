@@ -195,21 +195,29 @@ const ctx = await fetch('http://127.0.0.1:PORT/api/drives/context').then(r => r.
 if (ctx) messages.unshift({ role: 'system', content: ctx });
 ```
 
-**Option C — OpenAI Codex CLI or other agent CLIs**
+**Option C — OpenAI Codex CLI (≥ 0.141.0)**
 
-Codex has no hook system. Fetch the drives context before building your prompt file, then prepend it:
+Codex CLI has native lifecycle hooks. Copy the Python adapters and register them:
 
-```bash
-CONTEXT=$(curl -sf http://127.0.0.1:PORT/api/drives/context || echo "")
-if [ -n "$CONTEXT" ]; then
-  printf '%s\n\n' "$CONTEXT" | cat - prompt.txt > /tmp/prompt_with_context.txt
-  codex exec ... < /tmp/prompt_with_context.txt
-else
-  codex exec ... < prompt.txt
-fi
+```
+cp hooks/codex/UserPromptSubmit.py <your-codex-hooks-dir>/
+cp hooks/codex/Stop.py             <your-codex-hooks-dir>/
 ```
 
-Event reporting (msg_user, msg_assistant) must be called explicitly by your wrapper script or the agent itself after each exchange.
+Register in `~/.codex/hooks.json` (use `hooks/codex/hooks.json.example` as a template — replace the path placeholders with the absolute path to your Drivesoid install):
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python \"/path/to/drivesoid/hooks/codex/UserPromptSubmit.py\"", "timeout": 20, "statusMessage": "Loading Drivesoid state"}]}],
+    "Stop":             [{"hooks": [{"type": "command", "command": "python \"/path/to/drivesoid/hooks/codex/Stop.py\"", "timeout": 5, "statusMessage": "Reporting turn to Drivesoid"}]}]
+  }
+}
+```
+
+After saving, restart Codex and run `/hooks` to review and trust both commands.
+
+The `UserPromptSubmit` adapter also handles service lifecycle: if Drivesoid is not running (e.g. after a reboot), it starts `node src/server.js` in the background automatically before the turn proceeds.
 
 ---
 
