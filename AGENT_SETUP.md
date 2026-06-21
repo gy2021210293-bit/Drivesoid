@@ -71,6 +71,12 @@ Do NOT collect configuration through conversation.
 2. Tell the user:
    > "Please open **http://127.0.0.1:3001/setup** in your browser to complete setup. Fill in all fields and click Submit — I'll wait."
 
+   **If the user is on a remote VPS with no local browser access**, they need an SSH tunnel first. Tell them to run this on their local machine (replace `user` and `vps-ip`):
+   ```
+   ssh -L 3001:localhost:3001 user@vps-ip
+   ```
+   Then open `http://127.0.0.1:3001/setup` in their local browser as normal.
+
 3. Wait for the user to confirm they submitted the form, then stop the process (Ctrl+C).
 
 The setup page collects persona name, user name, relationship, timezone, and API key. Everything is written to disk by the server — the user never needs to touch any files, and the API key does not pass through chat.
