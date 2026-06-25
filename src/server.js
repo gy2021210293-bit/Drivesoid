@@ -680,15 +680,18 @@ setInterval(loadStatus, 15000);
     if (!status?.display || status.stale) return res.status(503).send('');
     const d = status.display;
     const f = k => (d[k] ?? 0).toFixed(2);
-    const block = [
+    const lines = [
       '[drives]',
       `vitality ${f('vitality')}  fatigue ${f('fatigue')}`,
       `longing ${f('longing')}  intimacy ${f('intimacy')}  possessiveness ${f('possessiveness')}  lust ${f('lust')}`,
       `jealousy ${f('jealousy')}  anxiety ${f('anxiety')}  protectiveness ${f('protectiveness')}  fear ${f('fear')}`,
       `contentment ${f('contentment')}  elation ${f('elation')}  seeking ${f('seeking')}  play ${f('play')}`,
       `dejection ${f('dejection')}  irritability ${f('irritability')}`,
-    ].join('\n');
-    res.set('Content-Type', 'text/plain').send(block);
+    ];
+    const fr = status.frustration ?? 0;
+    const pc = status.pending_count ?? 0;
+    if (fr > 0 || pc > 0) lines.push(`frustration ${fr.toFixed(2)}  pending ${pc}`);
+    res.set('Content-Type', 'text/plain').send(lines.join('\n'));
   });
 
   app.get('/', (req, res) => res.redirect('/dashboard'));

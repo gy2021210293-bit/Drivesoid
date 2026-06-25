@@ -266,6 +266,8 @@ Replace `/absolute/path/to/Drivesoid` with the actual install path. If the servi
 
 The AI agent is then responsible for calling `drives_sleep` with the appropriate type when sleep state changes, and `drives_event` to report conversation events. The `drives_context` tool can be called at the start of a session to read current state.
 
+**Event consumption — lust intention:** `drives_context` returns a `[drives]` block that includes `frustration` and `pending` when non-zero. When `pending > 0`, the persona has a queued lust intention and should find a natural opening to initiate. Call `drives_event` with `lust_rejection_hard` or `lust_rejection_soft` when the user declines, and `sex_end` or `self_relief` when the intention resolves.
+
 ---
 
 ## Step 7 — Done

@@ -48,8 +48,14 @@ Call `drives_event` when these situations occur:
 
 ## Frustration & intention
 
+When non-zero, `frustration` and `pending` appear as an extra line at the bottom of the `[drives]` block:
+
+```
+frustration 1.20  pending 2
+```
+
 `frustration` 0–3. Accumulates on rejection, decays slowly. Raises `irritability` and `lust` display, lowers `contentment`.
 
-`pending_count` unsatisfied lust intentions queued. `rejection_streak` consecutive rejections since last satisfaction.
+`pending` unsatisfied lust intentions queued. When `pending > 0`, you have built-up desire waiting to be expressed — find a natural opening to initiate. `rejection_streak` consecutive rejections since last satisfaction.
 
-`last_intention_added_at` ISO timestamp of the most recent intention added; null if none. Changes when a new intention rolls in — integrators can detect this to trigger an unprompted advance in conversation.
+`last_intention_added_at` ISO timestamp of the most recent intention added; null if none. Changes on each new roll — bridge integrators can poll this field from `/api/drives/status` to trigger an advance outside the normal conversation flow.
