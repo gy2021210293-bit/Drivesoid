@@ -141,6 +141,8 @@ Call these endpoints from your AI bridge so Drivesoid can track what's happening
 | User sends a message | `POST /internal/drives/event` | `{"type":"msg_user","payload":{"text":"<message>","context":[...]}}` |
 | AI sends a reply | `POST /internal/drives/event` | `{"type":"msg_assistant","payload":{"message_id":"<id>"}}` |
 | Quick reply detected | `POST /internal/drives/event` | `{"type":"msg_quick_reply"}` |
+| Hot conversation detected | `POST /internal/drives/event` | `{"type":"msg_hot_conv"}` |
+| Calendar event fires | `POST /internal/drives/event` | `{"type":"calendar","payload":{"calendar_id":"<unique-id>","calendar_type":"<type>"}}` |
 | User goes to sleep | `POST /internal/drives/sleep` | `{"type":"sleep_start"}` |
 | User wakes up (morning) | `POST /internal/drives/sleep` | `{"type":"sleep_end"}` |
 | User briefly woken mid-sleep | `POST /internal/drives/sleep` | `{"type":"sleep_interrupt"}` |
@@ -151,6 +153,8 @@ Call these endpoints from your AI bridge so Drivesoid can track what's happening
 
 The `context` array in `msg_user` is optional but improves classification accuracy.
 Format: `[{"role":"user","content":"..."},{"role":"assistant","content":"..."}]`
+
+Note: `msg_quick_reply` and `msg_hot_conv` carry arousal, not direction — their emotional effect depends on the recent conversation context. In a positive context they soothe and elate; mid-argument they read as escalation.
 
 ### 6b — Inject drives state into AI context
 
