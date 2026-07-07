@@ -20,7 +20,7 @@ The state model is tuned to match real human affect dynamics:
 - **Valence-aware timing signals** — quick replies and hot conversations carry arousal only; their emotional direction is borrowed from recent context, so a heated argument escalates rather than soothes.
 - **Negativity bias** — negative dimensions decay slower than positive ones.
 
-Run `node scripts/simulate.js` to replay six acceptance scenarios offline (virtual clock, mocked classifier, seeded RNG) and verify the curve shapes.
+Run `node scripts/simulate.js` to replay ten acceptance scenarios offline (virtual clock, mocked classifier, seeded RNG) and verify the curve shapes.
 
 ## Quick start
 
