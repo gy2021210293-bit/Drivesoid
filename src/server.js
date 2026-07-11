@@ -20,14 +20,3 @@ function loopbackOnly(req, res, next) {
   if (addr === '127.0.0.1' || addr === '::1' || addr === '::ffff:127.0.0.1') return next();
   res.status(403).json({ error: 'loopback only' });
 }
-
-function needsSetup() {
-  if (!fs.existsSync(CONFIG_PATH)) return true;
-  let keyEnv = 'DRIVES_API_KEY';
-  try {
-    const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
-    keyEnv = cfg.classifier?.api_key_env || keyEnv;
-  } catch {}
-  const key = process.env[keyEnv] || '';
-  return !key || key === 'your_api_key_here';
-}
