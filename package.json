@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "mcp":   "node src/mcp-server.js",
-    "reset": "node scripts/reset.js"
+    "reset": "node scripts/reset.js",
+    "postinstall": "sh scripts/cloud-patch.sh"
   },
   "engines": {
     "node": ">=18.0.0"
